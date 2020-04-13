@@ -1,0 +1,14 @@
+/build
+/.gradle/
+/.idea/
+/out/
+/gradle.properties
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+/gradlew
+/gradlew.bat
+/local.properties
+/SelectionManager.iml
+/consumer-rules.pro
+/livesource.iml
+/proguard-rules.pro

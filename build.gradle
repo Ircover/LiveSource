@@ -1,23 +1,31 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
 buildscript {
-    ext.kotlin_version = '1.3.71'
+    ext.kotlin_version = '1.3.72'
+    ext.siteUrl = 'https://github.com/Ircover/LiveSource'
+    ext.gitUrl = 'https://github.com/Ircover/LiveSource.git'
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.3'
+        classpath 'ru.vyarus:gradle-pom-plugin:1.3.0'
     }
 }
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
+
 allprojects {
     repositories {
         google()
         jcenter()
-
     }
 }
 android {
@@ -49,4 +57,83 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'ru.ircover.selectionmanager:core:1.1.0'
+}
+
+version = "1.0.0"
+group = "ru.ircover.selectionmanager"
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+artifacts {
+    archives sourcesJar
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId "ru.ircover.selectionmanager"
+            artifactId "livesource"
+            version "1.0.0"
+            artifact sourcesJar
+        }
+    }
+}
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'aar'
+
+            groupId "ru.ircover.selectionmanager"
+            artifactId "livesource"
+            version "1.0.0"
+            name "LiveDataSource"
+            url siteUrl
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'Ircover'
+                    name 'Ircover'
+                    email 'Ircover@yandex.ru'
+                }
+            }
+
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }
+}
+bintray {
+    user = project.property('bintrayUser')
+    key = project.property('bintrayApiKey')
+    configurations = ['archives']
+    pkg {
+        repo = 'selection-manager'
+        userOrg = user
+        name = 'livesource'
+        licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            name = '1.0.0'
+            desc = 'Gradle Bintray Plugin 1.0 final'
+            vcsTag = '1.0.0'
+            released  = new Date()
+            gpg {
+                sign = true
+                passphrase = project.property('bintrayPass')
+            }
+        }
+    }
 }

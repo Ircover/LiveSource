@@ -1,6 +1,13 @@
 # LiveSource
 
-Android extension for [Selection Manager](https://github.com/Ircover/SelectionManager) library to work with items selection in `LiveData` style. To use it just create `LiveDataSource` instance and place in its constructor any `InterceptableSelectionManager` you want to be used.
+[ ![Download](https://api.bintray.com/packages/ircover/selection-manager/livesource/images/download.svg?version=1.0.0) ](https://bintray.com/ircover/selection-manager/livesource/1.0.0/link)
+
+Gradle dependencies
+
+    implementation 'ru.ircover.selectionmanager:core:1.1.0'
+    implementation 'ru.ircover.selectionmanager:livesource:1.0.0'
+
+It's an Android extension for [Selection Manager](https://github.com/Ircover/SelectionManager) library to work with items selection in `LiveData` style. To use it just create `LiveDataSource` instance and place in its constructor any `InterceptableSelectionManager` you want to be used.
 
     val users = LiveDataSource<User>(MultipleSelection())
 
@@ -19,7 +26,7 @@ To observe data source change you can use `allItems` property - it's also `LiveD
 To observe selection change you can use `selectedItems` property (it's `LiveData` too).
 
     viewModel.users.selectedItems.observe(this, Observer { selectedItems: ArrayList<User> -> ... })
-In case you want to listen selection changing for items one by one, you can use one of following methods: 
+In case you want to listen selection changing for items one by one, you can use one of the following methods: 
 
     viewModel.users.observeSelectionChange(this) { position: Int, isSelected: Boolean -> ... } //listen for positions
     viewModel.users.observeItemSelectionChange(this) { user: User, isSelected: Boolean -> ... } //listen for items

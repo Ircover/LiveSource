@@ -1,11 +1,11 @@
 # LiveSource
 
-[ ![Download](https://api.bintray.com/packages/ircover/selection-manager/livesource/images/download.svg?version=1.0.0) ](https://bintray.com/ircover/selection-manager/livesource/1.0.0/link)
+[ ![Download](https://api.bintray.com/packages/ircover/selection-manager/livesource/images/download.svg?version=1.0.1) ](https://bintray.com/ircover/selection-manager/livesource/1.0.1/link)
 
 Gradle dependencies
 
     implementation 'ru.ircover.selectionmanager:core:1.1.0'
-    implementation 'ru.ircover.selectionmanager:livesource:1.0.0'
+    implementation 'ru.ircover.selectionmanager:livesource:1.0.1'
 
 It's an Android extension for [Selection Manager](https://github.com/Ircover/SelectionManager) library to work with items selection in `LiveData` style. To use it just create `LiveDataSource` instance and place in its constructor any `InterceptableSelectionManager` you want to be used.
 

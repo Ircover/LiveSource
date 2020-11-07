@@ -1,14 +1,15 @@
 buildscript {
-    ext.kotlin_version = '1.3.72'
+    ext.kotlin_version = '1.4.10'
     ext.siteUrl = 'https://github.com/Ircover/LiveSource'
     ext.gitUrl = 'https://github.com/Ircover/LiveSource.git'
+    ext.versionName = "1.0.1"
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.3'
@@ -29,16 +30,15 @@ allprojects {
     }
 }
 android {
-    compileSdkVersion 28
-    buildToolsVersion "29.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -54,12 +54,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'ru.ircover.selectionmanager:core:1.1.0'
 }
 
-version = "1.0.0"
+version = versionName
 group = "ru.ircover.selectionmanager"
 
 task sourcesJar(type: Jar) {
@@ -74,7 +74,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId "ru.ircover.selectionmanager"
             artifactId "livesource"
-            version "1.0.0"
+            version versionName
             artifact sourcesJar
         }
     }
@@ -86,7 +86,7 @@ install {
 
             groupId "ru.ircover.selectionmanager"
             artifactId "livesource"
-            version "1.0.0"
+            version versionName
             name "LiveDataSource"
             url siteUrl
 
@@ -126,9 +126,9 @@ bintray {
         publish = true
         publicDownloadNumbers = true
         version {
-            name = '1.0.0'
+            name = versionName
             desc = 'Gradle Bintray Plugin 1.0 final'
-            vcsTag = '1.0.0'
+            vcsTag = versionName
             released  = new Date()
             gpg {
                 sign = true
